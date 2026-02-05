@@ -92,6 +92,13 @@
                         <h3>Judías Asadas con Huevo Poché</h3>
                         <p class="dish-description">Una explosión de sabor y nutrientes con verduras frescas asadas y un delicado huevo poché.</p>
                         
+                        <div class="dish-price">
+                            <span class="price">$12.99</span>
+                            <button class="btn-order" onclick="orderDish('Judías Asadas con Huevo Poché', 12.99)">
+                                🛒 Ordenar Ahora
+                            </button>
+                        </div>
+                        
                         <div class="dish-details">
                             <h4>Ingredientes (4 personas)</h4>
                             <ul class="ingredients-list">
@@ -126,6 +133,13 @@
                     <div class="dish-content">
                         <h3>Lasaña de Calabacín con Pollo</h3>
                         <p class="dish-description">¿Eres fan de la lasaña? Ahora puedes cocinarla de una forma deliciosa y mucho más saludable sustituyendo las láminas de pasta por calabacín.</p>
+                        
+                        <div class="dish-price">
+                            <span class="price">$14.99</span>
+                            <button class="btn-order" onclick="orderDish('Lasaña de Calabacín con Pollo', 14.99)">
+                                🛒 Ordenar Ahora
+                            </button>
+                        </div>
                         
                         <div class="dish-details">
                             <h4>Ingredientes</h4>
@@ -168,6 +182,13 @@
                         <h3>Rape con Salsa de Almendras</h3>
                         <p class="dish-description">Una receta que mejora la salud y te cuida con pescado. El pescado blanco es bajo en grasas y rico en proteínas.</p>
                         
+                        <div class="dish-price">
+                            <span class="price">$16.99</span>
+                            <button class="btn-order" onclick="orderDish('Rape con Salsa de Almendras', 16.99)">
+                                🛒 Ordenar Ahora
+                            </button>
+                        </div>
+                        
                         <div class="dish-details">
                             <h4>Ingredientes (4 personas)</h4>
                             <ul class="ingredients-list">
@@ -200,6 +221,18 @@
         </div>
     </section>
 
+    <!-- Modal de Confirmación -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-icon">✅</div>
+            <h2>¡Pedido Confirmado!</h2>
+            <p id="orderDetails"></p>
+            <p class="modal-subtitle">Recibirás tu platillo fresco y listo para disfrutar</p>
+            <button class="btn-modal" onclick="closeModal()">Continuar Comprando</button>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer id="contacto" class="footer">
         <div class="container">
@@ -229,5 +262,54 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        function orderDish(dishName, price) {
+            // Mostrar el modal
+            const modal = document.getElementById('orderModal');
+            const orderDetails = document.getElementById('orderDetails');
+            
+            orderDetails.innerHTML = `Has ordenado: <strong>${dishName}</strong><br>Precio: <strong>$${price.toFixed(2)}</strong>`;
+            
+            modal.style.display = 'flex';
+            
+            // Animación de entrada
+            setTimeout(() => {
+                modal.querySelector('.modal-content').style.transform = 'scale(1)';
+                modal.querySelector('.modal-content').style.opacity = '1';
+            }, 10);
+            
+            // Opcional: Guardar en localStorage o enviar a un servidor
+            console.log(`Pedido realizado: ${dishName} - $${price}`);
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('orderModal');
+            const modalContent = modal.querySelector('.modal-content');
+            
+            // Animación de salida
+            modalContent.style.transform = 'scale(0.7)';
+            modalContent.style.opacity = '0';
+            
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+        
+        // Cerrar modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // Cerrar modal con la tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
